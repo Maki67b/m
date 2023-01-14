@@ -31,7 +31,7 @@ function find(response) {
     let lat = response.data.coord.lat;
     let lon = response.data.coord.lon;
     
-    let apiUrk = "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon=" + lon + "&appid=b4b4246dda70defe9829c2975022b771&units=metric";
+    let apiUrk = "https://api.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon=" + lon + "&appid=b4b4246dda70defe9829c2975022b771&units=metric";
     axios.get(apiUrk).then(getTempq);
 }
 function getTempq(response) {
