@@ -1,8 +1,9 @@
+navigator.geolocation.getCurrentPosition(showPosition);
 let now = new Date();
 
 let h3 = document.querySelector("h3");
-console.log(h3);
-let day = [
+function convertDay(d)
+{let day = [
   "sunday",
   "monday",
   "tuesday",
@@ -11,8 +12,11 @@ let day = [
   "friday",
   "saturday"
 ];
+return day[d.getDay()];
+}
+
 h3.innerHTML =
-  day[now.getDay()] + "  " + now.getHours() + ":" + now.getMinutes();
+  convertDay(now) + "  " + now.getHours() + ":" + now.getMinutes();
 
 let form = document.querySelector("form");
 form.addEventListener("submit", search);
@@ -20,33 +24,39 @@ function search(event) {
   event.preventDefault();
   let input = document.querySelector("#form-input");
   let city = input.value;
+  
   let apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=f3887e262c88d1158f7e2ef4998e234c&units=metric";
  
   axios.get(apiUrl).then(find);
+  forecast(city);
 }
 function find(response) {
     let lat = response.data.coord.lat;
     let lon = response.data.coord.lon;
+    let apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=f3887e262c88d1158f7e2ef4998e234c&units=metric";
+    axios.get(apiUrl).then(getTempq);
     
-    let apiUrk = "https://api.openweathermap.org/data/2.5/forecast/hourly?lat=" + lat + "&lon=" + lon + "&appid=b4b4246dda70defe9829c2975022b771&units=metric";
-    axios.get(apiUrk).then(getTempq);
 }
 function getTempq(response) {
-    console.log(response);
-  let tempp = document.querySelector("#temp");
+ 
+    let tempp = document.querySelector("#now");
+    let low = document.querySelector("#low");
+    let high = document.querySelector("#high");
   let status = document.querySelector("#status");
-  let wind = document.querySelector("#wind");
-  let hum = document.querySelector("#hum");
+  
   let h2 = document.querySelector("h2");
   h2.innerHTML = response.data.name;
-  console.log(response.data);
-  status.innerHTML = response.data.weather[0].main;
-  tempp.innerHTML = Math.round(response.data.main.temp);
-  wind.innerHTML = response.data.wind.speed;
-  hum.innerHTML = response.data.main.humidity;
+   status.innerHTML = Math.round(response.data.main.temp)+" ° | "+response.data.weather[0].main;
+ 
+  low.innerHTML = "L:"+Math.round(response.data.main.temp_min)+"°";
+  high.innerHTML = "H:" + Math.round(response.data.main.temp_max) + "°";
+  
+  let pic = response.data.weather[0].icon;
+  document.getElementById("status-pic").src = "http://openweathermap.org/img/wn/" + pic + "@2x.png";
+
 }
 
 let button = document.querySelector("button");
@@ -66,3 +76,26 @@ function showPosition(position) {
       "&appid=f3887e262c88d1158f7e2ef4998e234c&&units=metric";
     axios.get(apiUrl1).then(getTempq);
 }
+
+function forecast(city) {
+    let apiUr =
+  "https://api.openweathermap.org/data/2.5/forecast?cnt=6&appid=f3887e262c88d1158f7e2ef4998e234c&units=metric&q="+city;
+    axios.get(apiUr).then(showf);
+}
+
+function showf(response){
+
+    document
+        .querySelectorAll(".col-2")
+        .forEach(function (element, index) {
+            let day = new Date(response.data.list[index].dt_txt);
+            element.querySelector("#day").innerHTML = convertDay(day);
+            element.querySelector("#time").innerHTML = day.getHours()+":0"+day.getMinutes();
+            let pic= response.data.list[index].weather[0].icon;
+            element.querySelector("#pic").src = "http://openweathermap.org/img/wn/" + pic + "@2x.png";
+            let temp=Math.round( response.data.list[index].main.temp);
+            element.querySelector(".temp1").innerHTML=temp;
+
+
+        });
+    }

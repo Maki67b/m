@@ -13,46 +13,100 @@
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <title>hwp4</title>
 </head>
-<body>
+<body><div class="full">
     <div class="Container">
         <div class="box">
             <form>
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-6">
                         <input type="text" placeholder="Type a city..." id="form-input" />
                     </div>
-                    <div class="col-2">
+                    <div class="col">
                         <input type="submit" value="search" class="btn btn-primary" />
-                        </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-success">Current</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-success">Current Location</button>
                     </div>
                 </div>
             </form>
+            <br />
             <h2></h2>
             <h3></h3>
-            <h3 id="status"></h3>
+            <br />
+
+           <h5 id="status"></h5>
+            <img id="status-pic" src="" />
+
+
+            <div class="temp">
+
+                <p id="low"></p>
+               |
+                <p id="high"></p>
+            </div>
+            <hr />
             <div class="row">
-                <div class="col-7">
-                    <div class="tempunit">
-                        <div class="temp">
-                            <p id="temp"></p>
-                        </div>
-                        <span class="unit">
-                            °C
-                        </span>
+                <div class="col-2">
+                    <p id="day"></p>
+                    <p id="time"></p>
+                    <img id="pic" src="" />
+
+
+                    <div class="temp1">
+
                     </div>
                 </div>
-                <div class="col">
-                    <p>
-                        Humidity:<span id="hum"></span>
-                        <br />
-                        wind: <span id="wind"></span>km/h
-                    </p>
-                </div>
+                <div class="col-2">
+                    <p id="day"></p>
+                    <p id="time"></p>
+                    <img id="pic" src="" />
+
+
+                    <div class="temp1">
+
+                    </div>
+                </div><div class="col-2">
+    <p id="day"></p>
+    <p id="time"></p>
+    <img id="pic" src="" />
+
+
+    <div class="temp1">
+
+    </div>
+</div><div class="col-2">
+    <p id="day"></p>
+    <p id="time"></p>
+    <img id="pic" src="" />
+
+
+    <div class="temp1">
+
+    </div>
+</div><div class="col-2">
+    <p id="day"></p>
+    <p id="time"></p>
+    <img id="pic" src="" />
+
+
+    <div class="temp1">
+
+    </div>
+</div><div class="col-2">
+    <p id="day"></p>
+    <p id="time"></p>
+    <img id="pic" src="" />
+
+
+    <div class="temp1">
+
+    </div>
+</div>
             </div>
         </div>
+        <p><a href="https://github.com/matthieua/sup" >Open-source code</a>, by zahra Beirami</p>
     </div>
     <script src="src/index.js"></script>
+    </div>
 </body>
 </html>
